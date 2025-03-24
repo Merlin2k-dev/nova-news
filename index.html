@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaNews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 24px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .hero {
+      background: url('https://source.unsplash.com/1600x600/?technology,ai') center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: left;
+    }
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .hero button {
+      padding: 10px 20px;
+      background: #ff9800;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .articles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 40px 20px;
+    }
+    .article {
+      background: white;
+      width: 300px;
+      margin: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .article img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .article-content {
+      padding: 15px;
+    }
+    .article-content h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .article-content p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .article-content a {
+      text-decoration: none;
+      color: #ff9800;
+      font-weight: bold;
+    }
+    .about {
+      padding: 40px 20px;
+      background: #fff;
+      text-align: center;
+    }
+    .about h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .about p {
+      font-size: 16px;
+      color: #666;
+      max-width: 600px;
+      margin: auto;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .articles {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NovaNews</h1>
+    <nav>
+      <a href="#">World</a>
+      <a href="#">Business</a>
+      <a href="#">Tech</a>
+      <a href="#">Sports</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>BREAKING: AI Takes Over the World</h2>
+    <p>Tech giants respond to unprecedented AI advancements.</p>
+    <button>Read More</button>
+  </section>
+
+  <section class="articles">
+    <div class="article">
+      <img src="https://source.unsplash.com/400x200/?robot,technology" alt="AI News">
+      <div class="article-content">
+        <h3>AI Revolutionizing Business</h3>
+        <p>How artificial intelligence is transforming global industries.</p>
+        <a href="#">Read More</a>
+      </div>
+    </div>
+
+    <div class="article">
+      <img src="https://source.unsplash.com/400x200/?future,tech" alt="AI Impact">
+      <div class="article-content">
+        <h3>Automation & The Workforce</h3>
+        <p>The real impact of machine learning on employment.</p>
+        <a href="#">Read More</a>
+      </div>
+    </div>
+
+    <div class="article">
+      <img src="https://source.unsplash.com/400x200/?cybersecurity,ai" alt="Cyber AI">
+      <div class="article-content">
+        <h3>AI in Cyber Defense</h3>
+        <p>Defending against threats with intelligent tech.</p>
+        <a href="#">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About NovaNews</h2>
+    <p>NovaNews is edited by a team of independent tech journalists focused on delivering accurate, up-to-date news on artificial intelligence and emerging technologies. Our mission is to provide trustworthy insights in a fast-changing world.</p>
+  </section>
+
+  <footer>
+    &copy; 2025 NovaNews. All Rights Reserved. | Privacy Policy | Terms of Service
+  </footer>
+</body>
+</html>

@@ -24,9 +24,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
     header h1 {
       font-size: 24px;
+    }
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
     nav a {
       color: #fff;
@@ -34,8 +40,16 @@
       text-decoration: none;
       font-weight: 600;
     }
+    .search {
+      background: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
     .hero {
-      background: url('https://source.unsplash.com/1600x600/?technology,ai') center/cover no-repeat;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1696258686286-1191184126aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx2aXN1YWwtc2VhcmNofDF8fHxlbnwwfHx8fHw%3D');
+      background-size: cover;
+      background-position: center;
       color: white;
       padding: 100px 20px;
       text-align: left;
@@ -59,13 +73,13 @@
     .articles {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around;
+      justify-content: center;
       padding: 40px 20px;
+      gap: 20px;
     }
     .article {
       background: white;
       width: 300px;
-      margin: 20px;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -114,6 +128,11 @@
       font-size: 14px;
     }
     @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
       .articles {
         flex-direction: column;
         align-items: center;
@@ -124,13 +143,16 @@
 <body>
   <header>
     <h1>NovaNews</h1>
-    <nav>
-      <a href="#">World</a>
-      <a href="#">Business</a>
-      <a href="#">Tech</a>
-      <a href="#">Sports</a>
-      <a href="#">Contact</a>
-    </nav>
+    <div class="nav-search">
+      <nav>
+        <a href="#">World</a>
+        <a href="#">Business</a>
+        <a href="#">Tech</a>
+        <a href="#">Sports</a>
+        <a href="#">Contact</a>
+      </nav>
+      <input type="text" class="search" placeholder="Search..." />
+    </div>
   </header>
 
   <section class="hero">
@@ -141,7 +163,7 @@
 
   <section class="articles">
     <div class="article">
-      <img src="https://source.unsplash.com/400x200/?robot,technology" alt="AI News">
+      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=60" alt="AI Business">
       <div class="article-content">
         <h3>AI Revolutionizing Business</h3>
         <p>How artificial intelligence is transforming global industries.</p>
@@ -150,16 +172,16 @@
     </div>
 
     <div class="article">
-      <img src="https://source.unsplash.com/400x200/?future,tech" alt="AI Impact">
+      <img src="https://plus.unsplash.com/premium_photo-1726477324125-7395082c3b5e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx2aXN1YWwtc2VhcmNofDF8fHxlbnwwfHx8fHw%3D alt="Mini World">
       <div class="article-content">
-        <h3>Automation & The Workforce</h3>
-        <p>The real impact of machine learning on employment.</p>
+        <h3>AI Overtakes Human Creativity</h3>
+        <p>New AI models are now capable of generating paintings, and music faster than humans.</p>
         <a href="#">Read More</a>
       </div>
     </div>
 
     <div class="article">
-      <img src="https://source.unsplash.com/400x200/?cybersecurity,ai" alt="Cyber AI">
+      <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=1740&auto=format&fit=crop" alt="Cyber AI">
       <div class="article-content">
         <h3>AI in Cyber Defense</h3>
         <p>Defending against threats with intelligent tech.</p>

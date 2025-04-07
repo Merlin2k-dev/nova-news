@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NovaNews</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Global Reset & Fonts */
     * {
       margin: 0;
       padding: 0;
@@ -17,6 +18,7 @@
       color: #333;
       line-height: 1.6;
     }
+    /* HEADER */
     header {
       background-color: #111;
       color: #fff;
@@ -26,9 +28,7 @@
       align-items: center;
       flex-wrap: wrap;
     }
-    header h1 {
-      font-size: 24px;
-    }
+    header h1 { font-size: 24px; }
     .nav-search {
       display: flex;
       align-items: center;
@@ -39,6 +39,10 @@
       margin: 0 10px;
       text-decoration: none;
       font-weight: 600;
+      cursor: pointer;
+    }
+    nav a.active {
+      border-bottom: 2px solid #ff9800;
     }
     .search {
       background: white;
@@ -46,22 +50,26 @@
       padding: 5px 10px;
       border-radius: 5px;
     }
+    /* HERO */
     .hero {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1696258686286-1191184126aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx2aXN1YWwtc2VhcmNofDF8fHxlbnwwfHx8fHw%3D');
       background-size: cover;
       background-position: center;
       color: white;
       padding: 100px 20px;
       text-align: left;
+      position: relative;
     }
-    .hero h2 {
-      font-size: 48px;
-      margin-bottom: 10px;
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
     }
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
+    .hero > * { position: relative; z-index: 2; }
+    .hero h2 { font-size: 48px; margin-bottom: 10px; }
+    .hero p { font-size: 18px; margin-bottom: 20px; }
     .hero button {
       padding: 10px 20px;
       background: #ff9800;
@@ -70,6 +78,7 @@
       font-weight: bold;
       cursor: pointer;
     }
+    /* ARTICLES & CARDS (Used by category pages, not Home carousel) */
     .articles {
       display: flex;
       flex-wrap: wrap;
@@ -88,38 +97,144 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    .article-content {
-      padding: 15px;
-    }
-    .article-content h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-    .article-content p {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+    .article-content { padding: 15px; }
+    .article-content h3 { font-size: 20px; margin-bottom: 10px; }
+    .meta { font-size: 12px; color: gray; margin-bottom: 8px; }
+    .article-content p { font-size: 14px; margin-bottom: 10px; }
     .article-content a {
       text-decoration: none;
       color: #ff9800;
       font-weight: bold;
     }
+    .actions { margin-top: 10px; }
+    .actions a, .actions span {
+      font-size: 14px;
+      cursor: pointer;
+      color: #555;
+    }
+    .actions a:hover, .actions span:hover { color: #000; }
+    /* HOME CAROUSEL */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      margin: 40px auto;
+      max-width: 1200px;
+    }
+    .carousel-track {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+      transition: transform 0.5s ease;
+    }
+    /* Ensure each article in the carousel uses same dimensions (300px wide) as before */
+    .carousel-track .article {
+      flex: 0 0 auto;
+      width: 300px;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2em;
+      padding: 5px 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .left-arrow { left: 10px; }
+    .right-arrow { right: 10px; }
+    /* CONTACT FORM */
+    .contact-form {
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .contact-form h3 { margin-bottom: 20px; }
+    .contact-form label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .contact-form button {
+      padding: 10px 20px;
+      background: #ff9800;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    /* ABOUT SECTION */
     .about {
       padding: 40px 20px;
       background: #fff;
       text-align: center;
+      margin-top: 20px;
     }
-    .about h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+    .about h2 { font-size: 28px; margin-bottom: 10px; }
     .about p {
       font-size: 16px;
       color: #666;
       max-width: 600px;
-      margin: auto;
+      margin: 0 auto;
     }
+    /* CONTAINER (DETAIL, POLICY, TERMS) */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .container h1, .container h2 { margin-bottom: 20px; }
+    .container p { margin-bottom: 10px; line-height: 1.6; }
+    .container a { color: #ff9800; text-decoration: none; }
+    .container a:hover { text-decoration: underline; }
+    .container img {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 600px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* COMMENT FORM (DETAIL) */
+    .comment-form-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .comment-form-detail input,
+    .comment-form-detail textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .comment-form-detail button {
+      padding: 10px 20px;
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .comment-form-detail button:hover {
+      background: #e38900;
+    }
+    /* FOOTER */
     footer {
       background: #111;
       color: #fff;
@@ -127,76 +242,808 @@
       padding: 20px;
       font-size: 14px;
     }
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .articles {
-        flex-direction: column;
-        align-items: center;
-      }
+    footer a {
+      color: #ff9800;
+      text-decoration: none;
+      margin: 0 5px;
     }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .articles, .carousel-track { flex-direction: column; align-items: center; }
+      .container img { max-width: 100%; }
+    }
+    /* SECTION VISIBILITY */
+    .hidden { display: none; }
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <h1>NovaNews</h1>
     <div class="nav-search">
       <nav>
-        <a href="#">World</a>
-        <a href="#">Business</a>
-        <a href="#">Tech</a>
-        <a href="#">Sports</a>
-        <a href="#">Contact</a>
+        <a href="#home" class="active">Home</a>
+        <a href="#world">World</a>
+        <a href="#business">Business</a>
+        <a href="#tech">Tech</a>
+        <a href="#sports">Sports</a>
+        <a href="#contact">Contact</a>
       </nav>
-      <input type="text" class="search" placeholder="Search..." />
+      <input type="text" class="search" placeholder="Search..." aria-label="Search">
     </div>
   </header>
 
-  <section class="hero">
-    <h2>BREAKING: AI Takes Over the World</h2>
-    <p>Tech giants respond to unprecedented AI advancements.</p>
-    <button>Read More</button>
-  </section>
-
-  <section class="articles">
-    <div class="article">
-      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=60" alt="AI Business">
-      <div class="article-content">
-        <h3>AI Revolutionizing Business</h3>
-        <p>How artificial intelligence is transforming global industries.</p>
-        <a href="#">Read More</a>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- HOME SECTION (with aggregated Carousel) -->
+    <section id="home">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1696258686286-1191184126aa?auto=format&fit=crop&w=1470&q=80');" role="img" aria-label="Breaking news background">
+        <h2>BREAKING: AI Takes Over the World</h2>
+        <p>Tech giants respond to unprecedented AI advancements.</p>
+        <button onclick="scrollArticles('#home')">Read More</button>
       </div>
-    </div>
-
-    <div class="article">
-      <img src="https://plus.unsplash.com/premium_photo-1726477324125-7395082c3b5e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx2aXN1YWwtc2VhcmNofDF8fHxlbnwwfHx8fHw%3D alt="Mini World">
-      <div class="article-content">
-        <h3>AI Overtakes Human Creativity</h3>
-        <p>New AI models are now capable of generating paintings, and music faster than humans.</p>
-        <a href="#">Read More</a>
+      <!-- Home Carousel: Aggregated articles from all categories -->
+      <div class="carousel-container">
+        <button class="carousel-arrow left-arrow" onclick="slideLeft()">&#10094;</button>
+        <div class="carousel-track">
+          <!-- Home Article -->
+          <div class="article">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=60" alt="AI revolutionizing business industries">
+            <div class="article-content">
+              <h3>AI Revolutionizing Business</h3>
+              <div class="meta">By John Doe | April 2025</div>
+              <p>How AI transforms industries.</p>
+              <a href="#home-article-1" title="Read More" data-detail-target="home-article-1" data-comment-target="home-article-1-comments">Read More</a>
+              &nbsp;|&nbsp;
+              <a href="#home-article-1-comments" title="Comment" data-detail-target="home-article-1" data-comment-target="home-article-1-comments">Comment</a>
+            </div>
+          </div>
+          <!-- World Article -->
+          <div class="article">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="Global summit addressing climate crisis">
+            <div class="article-content">
+              <h3>Global Summit Tackles Climate Crisis</h3>
+              <div class="meta">By Anna Lee | April 2025</div>
+              <p>Leaders address climate change.</p>
+              <a href="#world-article-1" title="Read More" data-detail-target="world-article-1" data-comment-target="world-article-1-comments">Read More</a>
+              &nbsp;|&nbsp;
+              <a href="#world-article-1-comments" title="Comment" data-detail-target="world-article-1" data-comment-target="world-article-1-comments">Comment</a>
+            </div>
+          </div>
+          <!-- Business Article -->
+          <div class="article">
+            <img src="https://images.unsplash.com/photo-1675714781259-9dfa328c6937?q=80&w=1930&auto=format&fit=crop" alt="Stock market recovery">
+            <div class="article-content">
+              <h3>Stock Markets Rally Amid Recovery</h3>
+              <div class="meta">By David Kim | April 2025</div>
+              <p>Markets rebound, investors optimistic.</p>
+              <a href="#business-article-1" title="Read More" data-detail-target="business-article-1" data-comment-target="business-article-1-comments">Read More</a>
+              &nbsp;|&nbsp;
+              <a href="#business-article-1-comments" title="Comment" data-detail-target="business-article-1" data-comment-target="business-article-1-comments">Comment</a>
+            </div>
+          </div>
+          <!-- Tech Article -->
+          <div class="article">
+            <img src="https://images.unsplash.com/photo-1637428296956-7ef7dc4dd29e?q=80&w=1742&auto=format&fit=crop" alt="Cutting-edge gadget">
+            <div class="article-content">
+              <h3>Revolutionary Gadget Changes the Game</h3>
+              <div class="meta">By Chris Nguyen | April 2025</div>
+              <p>Next-gen gadget with AR features.</p>
+              <a href="#tech-article-1" title="Read More" data-detail-target="tech-article-1" data-comment-target="tech-article-1-comments">Read More</a>
+              &nbsp;|&nbsp;
+              <a href="#tech-article-1-comments" title="Comment" data-detail-target="tech-article-1" data-comment-target="tech-article-1-comments">Comment</a>
+            </div>
+          </div>
+          <!-- Sports Article -->
+          <div class="article">
+            <img src="https://images.unsplash.com/photo-1710788989294-844321bf734d?q=80&w=1740&auto=format&fit=crop" alt="Football match">
+            <div class="article-content">
+              <h3>Epic Football Clash Ends in a Draw</h3>
+              <div class="meta">By Tom Harris | April 2025</div>
+              <p>A thrilling match that excites fans.</p>
+              <a href="#sports-article-1" title="Read More" data-detail-target="sports-article-1" data-comment-target="sports-article-1-comments">Read More</a>
+              &nbsp;|&nbsp;
+              <a href="#sports-article-1-comments" title="Comment" data-detail-target="sports-article-1" data-comment-target="sports-article-1-comments">Comment</a>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-arrow right-arrow" onclick="slideRight()">&#10095;</button>
       </div>
-    </div>
-
-    <div class="article">
-      <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=1740&auto=format&fit=crop" alt="Cyber AI">
-      <div class="article-content">
-        <h3>AI in Cyber Defense</h3>
-        <p>Defending against threats with intelligent tech.</p>
-        <a href="#">Read More</a>
+      <div class="about about-home">
+        <h2>About NovaNews</h2>
+        <p>NovaNews brings together top stories in technology, global events, business, and sports. Our dedicated team of journalists delivers clear, insightful reporting to keep you informed.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="about">
-    <h2>About NovaNews</h2>
-    <p>NovaNews is edited by a team of independent tech journalists focused on delivering accurate, up-to-date news on artificial intelligence and emerging technologies. Our mission is to provide trustworthy insights in a fast-changing world.</p>
-  </section>
+    <!-- WORLD SECTION (Unchanged from previous implementation) -->
+    <section id="world" class="hidden">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1661705969607-cde73828023d?q=80&w=1932&auto=format&fit=crop');" role="img" aria-label="World news background">
+        <h2>World News: Global Updates</h2>
+        <p>Stay informed with the latest international developments.</p>
+        <button onclick="scrollArticles('#world')">Explore Articles</button>
+      </div>
+      <div class="articles">
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="Global summit addressing climate crisis">
+          <div class="article-content">
+            <h3>Global Summit Tackles Climate Crisis</h3>
+            <div class="meta">By Anna Lee | April 2025</div>
+            <p>World leaders unite to address environmental challenges.</p>
+            <a href="#world-article-1" title="Read More" data-detail-target="world-article-1" data-comment-target="world-article-1-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#world-article-1-comments" title="Comment" data-detail-target="world-article-1" data-comment-target="world-article-1-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=60" alt="International agreement being signed">
+          <div class="article-content">
+            <h3>New International Agreement Signed</h3>
+            <div class="meta">By Mark Evans | April 2025</div>
+            <p>Countries forge a historic trade pact.</p>
+            <a href="#world-article-2" title="Read More" data-detail-target="world-article-2" data-comment-target="world-article-2-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#world-article-2-comments" title="Comment" data-detail-target="world-article-2" data-comment-target="world-article-2-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1561489396-888724a1543d?q=80&w=1740&auto=format&fit=crop" alt="Diplomatic discussions during a crisis">
+          <div class="article-content">
+            <h3>Diplomatic Discussions in Crisis Regions</h3>
+            <div class="meta">By Lisa Ray | April 2025</div>
+            <p>Negotiations for peace underway in troubled areas.</p>
+            <a href="#world-article-3" title="Read More" data-detail-target="world-article-3" data-comment-target="world-article-3-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#world-article-3-comments" title="Comment" data-detail-target="world-article-3" data-comment-target="world-article-3-comments">Comment</a>
+          </div>
+        </div>
+      </div>
+      <div class="about">
+        <h2>About NovaNews</h2>
+        <p>Our global team brings you accurate, insightful updates from around the world.</p>
+      </div>
+    </section>
 
+    <!-- BUSINESS SECTION (Unchanged) -->
+    <section id="business" class="hidden">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1470&q=80');" role="img" aria-label="Business news background">
+        <h2>Business Insights: Market Trends</h2>
+        <p>Latest updates and insights on global business and markets.</p>
+        <button onclick="scrollArticles('#business')">Explore Articles</button>
+      </div>
+      <div class="articles">
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1675714781259-9dfa328c6937?q=80&w=1930&auto=format&fit=crop" alt="Stock market charts displaying recovery">
+          <div class="article-content">
+            <h3>Stock Markets Rally Amid Recovery</h3>
+            <div class="meta">By David Kim | April 2025</div>
+            <p>Markets rebound, investors optimistic.</p>
+            <a href="#business-article-1" title="Read More" data-detail-target="business-article-1" data-comment-target="business-article-1-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#business-article-1-comments" title="Comment" data-detail-target="business-article-1" data-comment-target="business-article-1-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=60" alt="Business meeting image">
+          <div class="article-content">
+            <h3>Corporate Giants Announce Mergers</h3>
+            <div class="meta">By Susan Park | April 2025</div>
+            <p>Major merger shakes up the market.</p>
+            <a href="#business-article-2" title="Read More" data-detail-target="business-article-2" data-comment-target="business-article-2-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#business-article-2-comments" title="Comment" data-detail-target="business-article-2" data-comment-target="business-article-2-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=800&q=60" alt="Business strategy image">
+          <div class="article-content">
+            <h3>Innovative Strategies in Retail</h3>
+            <div class="meta">By Michael Lee | April 2025</div>
+            <p>Tech transforms shopping experiences.</p>
+            <a href="#business-article-3" title="Read More" data-detail-target="business-article-3" data-comment-target="business-article-3-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#business-article-3-comments" title="Comment" data-detail-target="business-article-3" data-comment-target="business-article-3-comments">Comment</a>
+          </div>
+        </div>
+      </div>
+      <div class="about">
+        <h2>About NovaNews</h2>
+        <p>Our experts provide insightful business news and market analysis to keep you informed.</p>
+      </div>
+    </section>
+
+    <!-- TECH SECTION (Unchanged) -->
+    <section id="tech" class="hidden">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1470&q=80');" role="img" aria-label="Technology news background">
+        <h2>Tech Today: Innovation Unleashed</h2>
+        <p>Discover the latest breakthroughs in technology.</p>
+        <button onclick="scrollArticles('#tech')">Explore Articles</button>
+      </div>
+      <div class="articles">
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1637428296956-7ef7dc4dd29e?q=80&w=1742&auto=format&fit=crop" alt="Cutting-edge gadget image">
+          <div class="article-content">
+            <h3>Revolutionary Gadget Changes the Game</h3>
+            <div class="meta">By Chris Nguyen | April 2025</div>
+            <p>Next‑gen gadget with AR features.</p>
+            <a href="#tech-article-1" title="Read More" data-detail-target="tech-article-1" data-comment-target="tech-article-1-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#tech-article-1-comments" title="Comment" data-detail-target="tech-article-1" data-comment-target="tech-article-1-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=800&q=60" alt="Tech conference image">
+          <div class="article-content">
+            <h3>Global Tech Conference Unites Innovators</h3>
+            <div class="meta">By Priya Desai | April 2025</div>
+            <p>Experts share visionary ideas.</p>
+            <a href="#tech-article-2" title="Read More" data-detail-target="tech-article-2" data-comment-target="tech-article-2-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#tech-article-2-comments" title="Comment" data-detail-target="tech-article-2" data-comment-target="tech-article-2-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1740&auto=format&fit=crop" alt="Robotic arm image">
+          <div class="article-content">
+            <h3>Robotics & AI: The Future</h3>
+            <div class="meta">By Elena Garcia | April 2025</div>
+            <p>Automation is reshaping industries.</p>
+            <a href="#tech-article-3" title="Read More" data-detail-target="tech-article-3" data-comment-target="tech-article-3-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#tech-article-3-comments" title="Comment" data-detail-target="tech-article-3" data-comment-target="tech-article-3-comments">Comment</a>
+          </div>
+        </div>
+      </div>
+      <div class="about">
+        <h2>About NovaNews</h2>
+        <p>Stay ahead in the digital era with our expert tech news and analysis.</p>
+      </div>
+    </section>
+
+    <!-- SPORTS SECTION (Unchanged) -->
+    <section id="sports" class="hidden">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1589743560375-1b6984253af9?q=80&w=1930&auto=format&fit=crop');" role="img" aria-label="Sports news background">
+        <h2>Sports Highlights: Game On</h2>
+        <p>Catch up with the latest sports action.</p>
+        <button onclick="scrollArticles('#sports')">Explore Articles</button>
+      </div>
+      <div class="articles">
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1710788989294-844321bf734d?q=80&w=1740&auto=format&fit=crop" alt="Football match action">
+          <div class="article-content">
+            <h3>Epic Football Clash Ends in a Draw</h3>
+            <div class="meta">By Tom Harris | April 2025</div>
+            <p>A thrilling match that captivated fans.</p>
+            <a href="#sports-article-1" title="Read More" data-detail-target="sports-article-1" data-comment-target="sports-article-1-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#sports-article-1-comments" title="Comment" data-detail-target="sports-article-1" data-comment-target="sports-article-1-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1585070541988-21588bd29033?q=80&w=1887&auto=format&fit=crop" alt="Basketball game action">
+          <div class="article-content">
+            <h3>Basketball Finals: A Showdown</h3>
+            <div class="meta">By Emma Stone | April 2025</div>
+            <p>An unforgettable championship game.</p>
+            <a href="#sports-article-2" title="Read More" data-detail-target="sports-article-2" data-comment-target="sports-article-2-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#sports-article-2-comments" title="Comment" data-detail-target="sports-article-2" data-comment-target="sports-article-2-comments">Comment</a>
+          </div>
+        </div>
+        <div class="article">
+          <img src="https://images.unsplash.com/photo-1646824245287-bed93b5976b0?q=80&w=1740&auto=format&fit=crop" alt="Tennis match in action">
+          <div class="article-content">
+            <h3>Tennis Star Breaks Record</h3>
+            <div class="meta">By Lucas Perez | April 2025</div>
+            <p>A record-breaking performance in a Grand Slam final.</p>
+            <a href="#sports-article-3" title="Read More" data-detail-target="sports-article-3" data-comment-target="sports-article-3-comments">Read More</a>
+            &nbsp;|&nbsp;
+            <a href="#sports-article-3-comments" title="Comment" data-detail-target="sports-article-3" data-comment-target="sports-article-3-comments">Comment</a>
+          </div>
+        </div>
+      </div>
+      <div class="about">
+        <h2>About NovaNews</h2>
+        <p>NovaNews covers the excitement and drama of sports with detailed insights and up-to-the-minute updates.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION (Unchanged) -->
+    <section id="contact" class="hidden">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1470&q=80');" role="img" aria-label="Contact background">
+        <h2>Get in Touch</h2>
+        <p>We'd love to hear from you. Reach out for inquiries or feedback.</p>
+        <button onclick="scrollToElement('.contact-form')">Contact Us</button>
+      </div>
+      <div class="contact-form">
+        <h3>Contact Us</h3>
+        <form action="mailto:gabriel.v@students.opit.com" method="post" enctype="text/plain">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required aria-required="true">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required aria-required="true">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+      <div class="about">
+        <h2>Stay Connected</h2>
+        <p>Alternatively, email us at <strong>gabriel.v@students.opit.com</strong>. We look forward to hearing from you!</p>
+      </div>
+    </section>
+
+    <!-- PRIVACY POLICY SECTION (Unchanged) -->
+    <section id="policy" class="hidden">
+      <div class="container">
+        <h1>Privacy Policy</h1>
+        <p>This Privacy Policy explains how NovaNews collects, uses, discloses, and safeguards your information when you visit our website.</p>
+        <p><strong>Information We Collect:</strong> We may collect personal information such as your name and email when you contact us.</p>
+        <p><strong>Use of Information:</strong> We use the collected information to respond to inquiries, provide requested services, and improve our offerings.</p>
+        <p><strong>Sharing of Information:</strong> We do not share your information with third parties, except where required by law.</p>
+        <p><strong>Security:</strong> We use reasonable measures to protect your personal data, but cannot guarantee absolute security.</p>
+        <p>By using our site, you consent to this Privacy Policy. For any questions, please <a href="#contact">contact us</a>.</p>
+        <p><a href="#home">&larr; Back to Home</a></p>
+      </div>
+    </section>
+
+    <!-- TERMS OF SERVICE SECTION (Unchanged) -->
+    <section id="terms" class="hidden">
+      <div class="container">
+        <h1>Terms of Service</h1>
+        <p>These Terms govern your use of the NovaNews website. By accessing or using our site, you agree to be bound by these Terms.</p>
+        <p><strong>Use of Site:</strong> You agree to use the site for lawful purposes only and in accordance with these Terms.</p>
+        <p><strong>Intellectual Property:</strong> All content is owned by or licensed to NovaNews. You may not reproduce or redistribute any material without permission.</p>
+        <p><strong>Limitation of Liability:</strong> NovaNews is not liable for any damages arising from your use of the site or reliance on its content.</p>
+        <p><strong>Changes to Terms:</strong> We may modify these Terms at any time, and such modifications are effective immediately upon posting.</p>
+        <p>If you have any questions, please <a href="#contact">contact us</a>.</p>
+        <p><a href="#home">&larr; Back to Home</a></p>
+      </div>
+    </section>
+
+    <!-- ARTICLE DETAIL SECTIONS -->
+    <!-- HOME Detail Sections -->
+    <section id="home-article-1" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=60" alt="AI revolutionizing business industries">
+        <h2>AI Revolutionizing Business</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> John Doe</p>
+        <p>
+          This extended article dives deeply into how AI is driving innovation across diverse business sectors—from automating production lines to transforming customer service strategies.
+          Companies leverage AI to analyze vast data sets, enabling smarter decisions and personalized experiences.
+        </p>
+        <p>
+          Debates about workforce displacement and ethical concerns persist. Regulatory challenges and re-skilling needs remain key issues in the evolving digital economy.
+        </p>
+        <h3 id="home-article-1-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#home">← Back to Home</a></p>
+      </div>
+    </section>
+    <section id="home-article-2" class="hidden">
+      <div class="container">
+        <img src="https://plus.unsplash.com/premium_photo-1726477324125-7395082c3b5e?auto=format&fit=crop&w=800&q=60" alt="AI overtakes creativity">
+        <h2>AI Overtakes Human Creativity</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Jane Smith</p>
+        <p>
+          In a revolutionary shift, AI is not only mimicking human creativity but inspiring entirely new forms of artistic expression.
+          Advanced algorithms generate artworks and musical compositions that captivate audiences.
+        </p>
+        <p>
+          This article explores the technology behind creative AI, the debates on authenticity, and how traditional artists are adapting to this transformation.
+        </p>
+        <h3 id="home-article-2-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#home">← Back to Home</a></p>
+      </div>
+    </section>
+    <section id="home-article-3" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=800&q=60" alt="AI in cyber defense">
+        <h2>AI in Cyber Defense</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Alex Novak</p>
+        <p>
+          As cyber threats escalate, AI-driven security systems emerge as frontline defenses.
+          This article details how machine learning is deployed to detect and mitigate digital attacks in real time.
+        </p>
+        <p>
+          It also examines the balance between robust security and the privacy concerns that arise in an increasingly interconnected world.
+        </p>
+        <h3 id="home-article-3-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#home">← Back to Home</a></p>
+      </div>
+    </section>
+
+    <!-- WORLD Detail Sections -->
+    <section id="world-article-1" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="Global summit addressing climate crisis">
+        <h2>Global Summit Tackles Climate Crisis</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Anna Lee</p>
+        <p>
+          Leaders from around the world convened at a historic summit focused on urgent climate action.
+          Bold proposals to reduce emissions and boost renewable energy were presented amid calls for international cooperation.
+        </p>
+        <p>
+          The conference underscored the economic challenges and opportunities inherent in the global shift toward sustainability.
+        </p>
+        <h3 id="world-article-1-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#world">← Back to World</a></p>
+      </div>
+    </section>
+    <section id="world-article-2" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=60" alt="International agreement">
+        <h2>New International Agreement Signed</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Mark Evans</p>
+        <p>
+          In a groundbreaking move, countries signed an agreement designed to spur global trade by reducing tariffs and encouraging cross-border investment.
+        </p>
+        <p>
+          Analysts are watching closely as the long‑term effects of the pact on economic relations begin to unfold.
+        </p>
+        <h3 id="world-article-2-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#world">← Back to World</a></p>
+      </div>
+    </section>
+    <section id="world-article-3" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1561489396-888724a1543d?q=80&w=1740&auto=format&fit=crop" alt="Diplomatic discussions">
+        <h2>Diplomatic Discussions in Crisis Regions</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Lisa Ray</p>
+        <p>
+          In conflict‐plagued regions, high‐stakes diplomatic talks are underway, as mediators strive to forge compromises for lasting peace.
+        </p>
+        <p>
+          The discussions highlight the challenges of balancing national interests with humanitarian needs.
+        </p>
+        <h3 id="world-article-3-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#world">← Back to World</a></p>
+      </div>
+    </section>
+
+    <!-- BUSINESS Detail Sections -->
+    <section id="business-article-1" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1675714781259-9dfa328c6937?q=80&w=1930&auto=format&fit=crop" alt="Stock market recovery">
+        <h2>Stock Markets Rally Amid Recovery</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> David Kim</p>
+        <p>
+          Global stock markets surged as investors responded positively to economic stimulus and renewed optimism.
+        </p>
+        <p>
+          Our analysis breaks down the factors behind the rally and examines possible risks ahead in an unpredictable economic landscape.
+        </p>
+        <h3 id="business-article-1-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#business">← Back to Business</a></p>
+      </div>
+    </section>
+    <section id="business-article-2" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=60" alt="Corporate merger">
+        <h2>Corporate Giants Announce Mergers</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Susan Park</p>
+        <p>
+          Two major companies have merged in a deal that could redefine market dynamics and boost innovation.
+        </p>
+        <p>
+          However, concerns over reduced competition and monopolistic practices linger among industry experts.
+        </p>
+        <h3 id="business-article-2-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#business">← Back to Business</a></p>
+      </div>
+    </section>
+    <section id="business-article-3" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=800&q=60" alt="Retail innovation">
+        <h2>Innovative Strategies in Retail</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Michael Lee</p>
+        <p>
+          Digital technologies are transforming how retailers engage with customers through immersive experiences and personalized services.
+        </p>
+        <p>
+          Our report details the latest trends and examines how traditional stores are evolving to meet new consumer expectations.
+        </p>
+        <h3 id="business-article-3-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#business">← Back to Business</a></p>
+      </div>
+    </section>
+
+    <!-- TECH Detail Sections -->
+    <section id="tech-article-1" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1637428296956-7ef7dc4dd29e?q=80&w=1742&auto=format&fit=crop" alt="Cutting-edge gadget">
+        <h2>Revolutionary Gadget Changes the Game</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Chris Nguyen</p>
+        <p>
+          A breakthrough gadget featuring augmented reality and intuitive design is set to transform how users interact with technology.
+        </p>
+        <p>
+          Expert reviews and industry analysis explore its innovative design and potential impact on consumer habits.
+        </p>
+        <h3 id="tech-article-1-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#tech">← Back to Tech</a></p>
+      </div>
+    </section>
+    <section id="tech-article-2" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=800&q=60" alt="Tech conference">
+        <h2>Global Tech Conference Unites Innovators</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Priya Desai</p>
+        <p>
+          Innovators and industry leaders gathered at the annual tech conference to showcase breakthrough ideas and cutting-edge products.
+        </p>
+        <p>
+          The event featured keynote speeches, panel discussions, and exclusive product demos that are setting future trends.
+        </p>
+        <h3 id="tech-article-2-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#tech">← Back to Tech</a></p>
+      </div>
+    </section>
+    <section id="tech-article-3" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1740&auto=format&fit=crop" alt="Robotic arm">
+        <h2>Robotics & AI: The Future of Automation</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Elena Garcia</p>
+        <p>
+          As robotics and AI converge, groundbreaking solutions are automating complex tasks across various industries.
+        </p>
+        <p>
+          This article examines the transformative potential, challenges, and future prospects of these innovative systems.
+        </p>
+        <h3 id="tech-article-3-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#tech">← Back to Tech</a></p>
+      </div>
+    </section>
+
+    <!-- SPORTS Detail Sections -->
+    <section id="sports-article-1" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1710788989294-844321bf734d?q=80&w=1740&auto=format&fit=crop" alt="Football match">
+        <h2>Epic Football Clash Ends in a Draw</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Tom Harris</p>
+        <p>
+          In a nail-biting contest, two rival teams battled to a draw, captivating fans with every moment.
+        </p>
+        <p>
+          Expert analysis delves into the tactics and key plays that defined this exciting match.
+        </p>
+        <h3 id="sports-article-1-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#sports">← Back to Sports</a></p>
+      </div>
+    </section>
+    <section id="sports-article-2" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1585070541988-21588bd29033?q=80&w=1887&auto=format&fit=crop" alt="Basketball game">
+        <h2>Basketball Finals: A Showdown</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Emma Stone</p>
+        <p>
+          The finals delivered breathtaking athleticism and unforgettable moments that thrilled fans across the globe.
+        </p>
+        <p>
+          Detailed analysis and expert opinions uncover the secrets behind the team’s success and the challenges that lay ahead.
+        </p>
+        <h3 id="sports-article-2-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#sports">← Back to Sports</a></p>
+      </div>
+    </section>
+    <section id="sports-article-3" class="hidden">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1646824245287-bed93b5976b0?q=80&w=1740&auto=format&fit=crop" alt="Tennis match">
+        <h2>Tennis Star Breaks Record</h2>
+        <p><strong>Date:</strong> April 2025 | <strong>Author:</strong> Lucas Perez</p>
+        <p>
+          In a monumental performance, a tennis legend shattered a longstanding record during the Grand Slam finals.
+        </p>
+        <p>
+          This article analyzes the critical moments of the match and discusses the implications for the future of the sport.
+        </p>
+        <h3 id="sports-article-3-comments">Comments</h3>
+        <div class="comments"></div>
+        <form class="comment-form-detail">
+          <input type="text" placeholder="Your name" required>
+          <textarea placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+        <p><a href="#sports">← Back to Sports</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
   <footer>
-    &copy; 2025 NovaNews. All Rights Reserved. | Privacy Policy | Terms of Service
+    &copy; 2025 NovaNews. All Rights Reserved. | Site by Group 16 – 2025 |
+    <a href="#policy">Privacy Policy</a> |
+    <a href="#terms">Terms of Service</a>
   </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    const sections = document.querySelectorAll('main > section');
+    const navLinks = document.querySelectorAll('nav a');
+    const searchInput = document.querySelector('.search');
+
+    function showSection(targetId) {
+      sections.forEach(section => {
+        section.classList.toggle('hidden', section.id !== targetId);
+      });
+      navLinks.forEach(link => {
+        const hrefId = link.getAttribute('href').substring(1);
+        if (['home','world','business','tech','sports','contact'].includes(hrefId)) {
+          link.classList.toggle('active', hrefId === targetId);
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (searchInput) {
+        searchInput.value = '';
+        const articleCards = document.querySelectorAll(`#${targetId} .article`);
+        articleCards.forEach(card => { card.style.display = ''; });
+      }
+    }
+
+    function scrollArticles(sectionId) {
+      const articles = document.querySelector(sectionId + " .articles");
+      if (articles) articles.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToElement(selector) {
+      const el = document.querySelector(selector);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // HOME CAROUSEL functions
+    let currentPage = 0;
+    function updateVisibleCount() {
+      const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+      const article = document.querySelector('.carousel-track .article');
+      if (!article) return 1;
+      const articleWidth = article.offsetWidth + 20;
+      return Math.floor(containerWidth / articleWidth);
+    }
+    function slideLeft() {
+      const visibleCount = updateVisibleCount();
+      currentPage = Math.max(0, currentPage - 1);
+      const article = document.querySelector('.carousel-track .article');
+      if (!article) return;
+      const articleWidth = article.offsetWidth + 20;
+      document.querySelector('.carousel-track').style.transform = `translateX(-${currentPage * visibleCount * articleWidth}px)`;
+    }
+    function slideRight() {
+      const visibleCount = updateVisibleCount();
+      const articles = document.querySelectorAll('.carousel-track .article');
+      const totalArticles = articles.length;
+      const totalPages = Math.ceil(totalArticles / visibleCount);
+      currentPage = (currentPage + 1) % totalPages;
+      const article = document.querySelector('.carousel-track .article');
+      if (!article) return;
+      const articleWidth = article.offsetWidth + 20;
+      document.querySelector('.carousel-track').style.transform = `translateX(-${currentPage * visibleCount * articleWidth}px)`;
+    }
+    setInterval(slideRight, 5000);
+
+    // Search filter for current section articles
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        const currentSection = Array.from(sections).find(s => !s.classList.contains('hidden') && ['home','world','business','tech','sports','contact'].includes(s.id));
+        if (currentSection) {
+          const articleCards = currentSection.querySelectorAll('.article');
+          articleCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            card.style.display = title.includes(query) ? '' : 'none';
+          });
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.substring(1) || 'home';
+      showSection(hash);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = this.getAttribute('href').substring(1);
+        if (this.dataset.detailTarget) {
+          showSection(this.dataset.detailTarget);
+          if (this.dataset.commentTarget) {
+            setTimeout(() => {
+              const commentEl = document.getElementById(this.dataset.commentTarget);
+              if (commentEl) commentEl.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+          }
+        } else {
+          showSection(target);
+        }
+        history.pushState(null, null, '#' + target);
+      });
+    });
+  </script>
 </body>
 </html>
